@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Usuario</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eeeeee;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            max-width: 800px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #224a50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .tabs {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .tablinks {
+            background-color: #97aa97;
+            color: #eeeeee;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin: 0 10px;
+        }
+        .tablinks:hover {
+            background-color: #224a50;
+        }
+        .tabcontent {
+            display: none;
+            padding: 20px 0;
+        }
+        .tabcontent p {
+            margin-bottom: 10px;
+        }
+        .active {
+            background-color: #224a50 !important;
+        }
+        button[type="submit"] {
+            background-color: #cc0000; /* Nuevo color para indicar "Cerrar Sesión" */
+            color: #eeeeee;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+        button[type="submit"]:hover {
+            background-color: #dd3333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Perfil de Usuario</h1>
+        <div class="tabs">
+            <button class="tablinks" onclick="openTab(event, 'info')" id="defaultOpen">Información</button>
+            <button class="tablinks" onclick="openTab(event, 'favoritos')">Guardados en Favoritos</button>
+            <button class="tablinks" onclick="openTab(event, 'publicados')">Inmuebles Publicados</button>
+        </div>
+
+        <div id="info" class="tabcontent">
+            <h2>Información del Usuario</h2>
+            <p><strong>Nombre:</strong> {{ usuario.username }}</p>
+            <p><strong>Correo:</strong> {{ usuario.email }}</p>
+            <p><strong>Contraseña:</strong> ********</p>
+        </div>
+
+        <div id="favoritos" class="tabcontent">
+            <h2>Mis Favoritos</h2>
+            <p><a href="{% url 'favorite_properties' %}" style="color: #224a50;">Ver Favoritos</a></p>
+        </div>
+
+        <div id="publicados" class="tabcontent">
+            <h2>Inmuebles Publicados</h2>
+            <p><a href="#" style="color: #224a50;">Ver Inmuebles Publicados</a></p>
+        </div>
+
+        <form action="{% url 'custom_logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Cerrar Sesión</button>
+        </form>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+        document.getElementById("defaultOpen").click();
+    </script>
+</body>
+</html>

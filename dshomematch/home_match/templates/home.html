@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Match</title>
+    <style>
+        /* Estilos CSS aquí */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #eeeeee;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .navbar {
+            width: 100%;
+            background-color: #97aa97;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .navbar .navbar-brand {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #224a50;
+            font-size: 1.5em;
+        }
+        .navbar .navbar-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+        }
+        .navbar .navbar-nav .nav-item {
+            margin-left: 20px;
+            text-align: center;
+        }
+        .navbar .navbar-nav .nav-link {
+            text-decoration: none;
+            color: #224a50;
+            font-size: 1em;
+            transition: color 0.3s;
+        }
+        .navbar .navbar-nav .nav-link:hover {
+            color: #007bff;
+        }
+        .navbar .navbar-icons {
+            display: flex;
+            align-items: center;
+        }
+        .navbar .navbar-icons a {
+            margin-left: 15px;
+            color: #224a50;
+            transition: color 0.3s;
+        }
+        .navbar .navbar-icons a:hover {
+            color: #007bff;
+        }
+        h1 {
+            text-align: center;
+            color: #224a50;
+            margin: 20px 0;
+            font-size: 3em;
+        }
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form button {
+            background-color: #224a50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        form button:hover {
+            background-color: #1a3a3f;
+        }
+        .property-list {
+            list-style-type: none;
+            padding: 0;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        .property-item {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 10px 0;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .property-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .property-item h2 {
+            margin-top: 0;
+            font-size: 1.5em;
+            color: #224a50;
+        }
+        .property-item p {
+            margin: 5px 0;
+            line-height: 1.5;
+        }
+        .no-properties {
+            text-align: center;
+            font-size: 1.2em;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a class="navbar-brand" href="#">
+            Home Match
+        </a>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Inicio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Publicar Propiedad</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'contact' %}">Contacto</a>
+            </li>
+        </ul>
+        <div class="navbar-icons">
+            <a href="{% url 'favorite_properties' %}">
+                <img src="https://cdn.icon-icons.com/icons2/3544/PNG/512/saved_icon_224568.png" alt="Guardar en favoritos" width="30" height="24">
+            </a>
+            <a href="{% url 'perfil' %}">
+                <img src="https://icons.veryicon.com/png/o/internet--web/prejudice/user-128.png" alt="Perfil de usuario" width="30" height="30">
+            </a>
+        </div>
+    </nav>
+
+    <h1>¡Bienvenido a Home Match!</h1>
+
+    <form method="get" action="{% url 'home' %}">
+        {{ form.as_p }}
+        <button type="submit">Filtrar</button>
+    </form>
+
+    <ul class="property-list">
+        {% for property in properties %}
+            <li class="property-item">
+                <a href="{% url 'property_detail' property.id %}">
+                   <h2>{{ property.title }}</h2>
+                </a>
+                <p>{{ property.description }}</p>
+                <p>Tipo: {{ property.get_sale_or_rent_display }}</p>
+                <p>Zona: {{ property.get_zone_display }}</p>
+                <p>Precio: ${{ property.price }}</p>
+                <p>Número de Habitaciones: {{ property.get_number_of_rooms_display }}</p>
+            </li>
+        {% empty %}
+            <li class="property-item no-properties">No se encontraron propiedades.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

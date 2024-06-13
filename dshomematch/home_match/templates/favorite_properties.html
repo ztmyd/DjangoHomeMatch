@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propiedades Favoritas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eeeeee;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+        h1 {
+            color: #224a50;
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        p {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% if favorite_properties %}
+            <h1>Propiedades Favoritas</h1>
+            <ul>
+                {% for property in favorite_properties %}
+                    <li>{{ property.title }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h1>Propiedades Favoritas</h1>
+            <p>No hay propiedades favoritas guardadas.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
+

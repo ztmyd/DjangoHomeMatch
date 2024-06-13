@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://wallpaper.forfun.com/fetch/ea/eadd1688caf9d2d5b4ecf7bc4b0e113a.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #224a50;
+        }
+        h2 {
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+        .form-container {
+            background-color: rgba(151, 170, 151, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 280px;
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 5px;
+            color: #ffffff; /* Cambiado a blanco */
+        }
+        input {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: border-color 0.3s;
+        }
+        input:focus {
+            border-color: #224a50;
+        }
+        .error {
+            color: red;
+        }
+        button {
+            padding: 10px;
+            background-color: #224a50;
+            color: #eeeeee;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #1a3a3f;
+        }
+        .login-link {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+        }
+        .login-link button {
+            background-color: #97aa97;
+            color: #eeeeee;
+            transition: background-color 0.3s;
+        }
+        .login-link button:hover {
+            background-color: #224a50;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Signup</h2>
+        <form method="post">
+            {% csrf_token %}
+            <label for="id_username" style="color: #ffffff;">Nombre de usuario:</label> <!-- Ajustado a blanco -->
+            {{ form.username }}
+            <label for="id_email" style="color: #ffffff;">Correo electrónico:</label> <!-- Ajustado a blanco -->
+            {{ form.email }}
+            <label for="id_password1" style="color: #ffffff;">Contraseña:</label> <!-- Ajustado a blanco -->
+            {{ form.password1 }}
+            <input type="password" name="password2" placeholder="Confirm Password" required>
+            <button type="submit">Signup</button>
+        </form>
+        <div class="login-link">
+            <a href="{% url 'custom_login' %}"><button type="button">Login</button></a>
+        </div>
+    </div>
+</body>
+</html>

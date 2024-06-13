@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ property.title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eeeeee;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .property-detail {
+            background-color: #ffffff;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+        }
+        .property-detail h1 {
+            color: #224a50;
+            margin-bottom: 10px;
+        }
+        .property-detail p {
+            color: #333;
+            margin-bottom: 8px;
+        }
+        .property-detail a, .property-detail button {
+            background-color: #97aa97;
+            color: #eeeeee;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            width: auto;
+        }
+        .property-detail a:hover, .property-detail button:hover {
+            background-color: #224a50;
+        }
+    </style>
+</head>
+<body>
+    <div class="property-detail">
+        <h1>{{ property.title }}</h1>
+        <p>Description: {{ property.description }}</p>
+        <p>Type: {{ property.get_sale_or_rent_display }}</p>
+        <p>Zone: {{ property.get_zone_display }}</p>
+        <p>Price: ${{ property.price }}</p>
+        <p>Number of Rooms: {{ property.number_of_rooms }}</p>
+        <p>Property Type: {{ property.get_property_type_display }}</p>
+        <a href="{% url 'home' %}">Back to list</a>
+
+        {% if property.is_favorite %}
+            <form method="post" action="{% url 'remove_from_favorites' property.id %}">
+                {% csrf_token %}
+                <button type="submit">Remove from Favorites</button>
+            </form>
+        {% else %}
+            <form method="post" action="{% url 'save_to_favorites' property.id %}">
+                {% csrf_token %}
+                <button type="submit">Save to Favorites</button>
+            </form>
+        {% endif %}
+
+        <form method="post" action="{% url 'contact' %}">
+            {% csrf_token %}
+            <button type="submit">Contactar</button>
+        </form>
+    </div>
+</body>
+</html>

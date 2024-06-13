@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eeeeee;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+        h1, h2 {
+            color: #224a50;
+            margin-bottom: 10px;
+        }
+        p {
+            margin-bottom: 8px;
+        }
+        a {
+            background-color: #97aa97;
+            color: #eeeeee;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            margin-top: 20px;
+        }
+        a:hover {
+            background-color: #224a50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Información de Contacto</h1>
+
+        <h2>Agente</h2>
+        <p>Nombre: {{ agent_info.name }}</p>
+        <p>Teléfono: {{ agent_info.phone }}</p>
+
+        <h2>Propietario</h2>
+        <p>Nombre: {{ owner_info.name }}</p>
+        <p>Teléfono: {{ owner_info.phone }}</p>
+
+        <a href="javascript:history.back()">Volver</a>
+    </div>
+</body>
+</html>
