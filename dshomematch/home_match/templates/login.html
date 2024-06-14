@@ -57,7 +57,33 @@
         button:hover {
             background-color: #224a50; 
         }
+        .password-container {
+            position: relative;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #eeeeee;
+        }
     </style>
+    <script>
+        function togglePassword() {
+            var passwordField = document.getElementById("id_password");
+            var toggleButton = document.getElementById("togglePassword");
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                toggleButton.textContent = "Ocultar contraseña";
+            } else {
+                passwordField.type = "password";
+                toggleButton.textContent = "Ver contraseña";
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="form-container">
@@ -67,7 +93,10 @@
             <label for="id_username">Username:</label>
             {{ form.username }}
             <label for="id_password">Password:</label>
-            {{ form.password }}
+            <div class="password-container">
+                {{ form.password }}
+                <button type="button" id="togglePassword" class="toggle-password" onclick="togglePassword()">Ver contraseña</button>
+            </div>
             <button type="submit">Login</button>
         </form>
     </div>

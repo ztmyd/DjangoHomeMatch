@@ -3,8 +3,13 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 from home_match.models import CustomUser, Property, Incident
 from .models import Property
+from django.contrib.auth.forms import AuthenticationForm
 
 User = get_user_model()
+
+class CustomAuthenticationForm(AuthenticationForm):
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'id_username'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'id': 'id_password'}))
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
@@ -12,11 +17,12 @@ class CustomUserCreationForm(UserCreationForm):
         fields = ('username', 'email')
 
 class SignUpForm(UserCreationForm):
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'id': 'password'}))
     email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
 
-    class Meta:
-        model = User
-        fields = ('username', 'email', 'password1', 'password2')
+class Meta:
+    model = User
+    fields = ('username', 'email', 'password1', 'password2')
 
 class BasicPropertyForm(forms.ModelForm):
     class Meta:
